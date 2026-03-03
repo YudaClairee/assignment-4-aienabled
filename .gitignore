@@ -9,6 +9,8 @@ wheels/
 # Virtual environments
 .venv
 
+app/modules/research/
+
 # PDF files
 *.pdf
 .env

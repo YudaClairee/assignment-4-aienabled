@@ -1,18 +1,17 @@
 from fastapi import FastAPI
 from scalar_fastapi import get_scalar_api_reference
 
-from app.modules.research.schema import ResearchInput
-from app.modules.research.tasks import report_research_task
+
+from app.modules.api_tester.schema import TestCasesInput
+from app.modules.api_tester.tasks import qa_task
 
 app = FastAPI()
 
 
-@app.post("/ask")
-def do_research(body: ResearchInput):
-
-    report_research_task.delay(body.idea)  # type: ignore
-
-    return {"message": "Researching..."}
+@app.post("/qa")
+def do_qa(body: TestCasesInput):
+    qa_task.delay(body.api_description, body.base_url)  # type: ignore
+    return {"message": "Testing API..."}
 
 
 @app.get("/scalar")
